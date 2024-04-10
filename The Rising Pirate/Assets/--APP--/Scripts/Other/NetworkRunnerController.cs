@@ -27,7 +27,7 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
             networkRunnerInstance = Instantiate(networkRunnerPrefab);
         }
         networkRunnerInstance.AddCallbacks(this);
-        //networkRunnerInstance.ProvideInput = true;
+        networkRunnerInstance.ProvideInput = true;
 
         var startGameArgs = new StartGameArgs()
         {
@@ -42,7 +42,8 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
         {
             //empieza
             const string SCENE_NAME = "MainScene";
-            await networkRunnerInstance.LoadScene(SCENE_NAME);
+            //await networkRunnerInstance.LoadScene(SCENE_NAME);
+            networkRunnerInstance.SetActiveScene(SCENE_NAME);
             //networkRunnerInstance.EnsureRunnerSceneIsActive(out Scene previousActiveScene);
             //networkRunnerInstance.GetSceneRef(SCENE_NAME);
 
@@ -114,7 +115,7 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
         Debug.Log("OnPlayerLeft");
     }
 
-    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
+   /* public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
     {
         Debug.Log("OnReliableDataProgress");
     }
@@ -122,7 +123,7 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ArraySegment<byte> data)
     {
         Debug.Log("OnReliableDataReceived");
-    }
+    }*/
 
     public void OnSceneLoadDone(NetworkRunner runner)
     {
@@ -161,5 +162,15 @@ public class NetworkRunnerController : MonoBehaviour, INetworkRunnerCallbacks
     void Update()
     {
         
+    }
+
+    public void OnDisconnectedFromServer(NetworkRunner runner)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
+    {
+        throw new NotImplementedException();
     }
 }

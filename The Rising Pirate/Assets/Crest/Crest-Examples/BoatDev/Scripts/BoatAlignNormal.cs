@@ -136,6 +136,7 @@ public class BoatAlignNormal : FloatingObjectBase
 
         float forward = _throttleBias;
         float rawForward = Input.GetAxis("Vertical");
+        Debug.Log(rawForward);
         if (_playerControlled) forward += rawForward;
         _rb.AddForceAtPosition(transform.forward * _enginePower * forward, forcePosition, ForceMode.Acceleration);
 

@@ -25,10 +25,13 @@ public class LerpCam : MonoBehaviour
         _sampleHeightHelper.Init(transform.position, 0f);
         _sampleHeightHelper.Sample(out var h);
 
-        var targetPos = _targetPos.position;
-        targetPos.y = Mathf.Max(targetPos.y, h + _minHeightAboveWater);
+        if (_targetPos != null)
+        {
+            var targetPos = _targetPos.position;
+            targetPos.y = Mathf.Max(targetPos.y, h + _minHeightAboveWater);
+            transform.position = Vector3.Lerp(transform.position, targetPos, _lerpAlpha * OceanRenderer.Instance.DeltaTime * 60f);
+            transform.LookAt(_targetLookatPos.position + _lookatOffset * Vector3.up);
+        }
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, _lerpAlpha * OceanRenderer.Instance.DeltaTime * 60f);
-        transform.LookAt(_targetLookatPos.position + _lookatOffset * Vector3.up);
     }
 }
